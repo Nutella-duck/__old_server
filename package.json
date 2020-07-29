@@ -1,0 +1,27 @@
+{
+  "name": "nutellaweb-apiserver",
+  "version": "1.0.0",
+  "description": "API SERVER\r hi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NutellaCoder/NutellaWeb-ApiServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NutellaCoder/NutellaWeb-ApiServer/issues"
+  },
+  "homepage": "https://github.com/NutellaCoder/NutellaWeb-ApiServer#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.3"
+  }
+}
