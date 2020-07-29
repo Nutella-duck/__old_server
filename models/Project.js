@@ -8,16 +8,8 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       autoIncrement: true,
     },
-    decription: {
+    description: {
       type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    lastmodification: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    createdtime: {
-      type: DataTypes.DATE,
       allowNull: false,
     },
     projectname: {

@@ -1,9 +1,8 @@
-var dotenv = require("dotenv");
-var express = require("express");
-var db = require("./models");
-var project = require("./routs/projectRoute");
-var app = express();
-var bodyParser = require("body-parser");
+const express = require("express");
+const db = require("./models");
+const project = require("./routs/projectRoute");
+const app = express();
+const bodyParser = require("body-parser");
 
 const port = 7000;
 
@@ -21,9 +20,6 @@ db.sequelize
 
 app.use(bodyParser.json());
 
-app.get("/test", (req, res) => {
-  res.end("hello node");
-});
 app.use("/admin", project);
 
 app.listen(port, () => {});

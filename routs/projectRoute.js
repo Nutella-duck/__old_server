@@ -1,9 +1,15 @@
-var express = require("express");
+const express = require("express");
 
-var router = express.Router();
+const router = express.Router();
 
-var project = require("../controllers/projectController.js");
+const project = require("../controllers/projectController.js");
 
-router.post("/product/create", project.create);
+router.post("/project", project.create);
+
+router.get("/project", project.read);
+
+router.delete("/project/:id", project.delete);
+
+router.put("/project/:id", project.update);
 
 module.exports = router;
