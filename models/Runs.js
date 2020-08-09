@@ -16,11 +16,11 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },    
-    createdTime: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        allowNull: false,
-      },
+    // createdTime: {
+    //     type: DataTypes.DATE,
+    //     defaultValue: DataTypes.NOW,
+    //     allowNull: false,
+    //   },
     projectname: {
       type: DataTypes.STRING,
       allowNull: false,

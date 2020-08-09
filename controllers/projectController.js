@@ -7,6 +7,7 @@ projectController.create = function (req, res) {
     .create({
       description: req.body.description,
       projectname: req.body.projectname,
+      apiKey: Math.random().toString(36).slice(2),
     })
     .then(() => {
       res.send("create success");

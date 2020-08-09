@@ -2,16 +2,17 @@ const models = require("../models");
 
 let runsController = {};
 
-
 // runsController.create = function (req, res) {
 //   models.runs
 //     .create({
-//       projectname: req.body.runsname,
+//       modelName: "testbeforesdk" //req.body.runsname,
+//       state: "none",
+//       projectname: "test",
 //     })
 //     .then(() => {
 //       res.send("create success");
 //     });
-// };
+// }; 
 
 
 runsController.read = function (req, res) {
@@ -19,7 +20,6 @@ runsController.read = function (req, res) {
     res.json(runsList);
   });
 };
-
 
 // runsController.delete = function (req, res) {
 //   models.runs
@@ -33,22 +33,21 @@ runsController.read = function (req, res) {
 //     });
 // };
 
-
-// runsController.update = function (req, res) {
-//   models.runs
-//     .update(
-//       {
-//         runsname: req.body.runsname,
-//       },
-//       {
-//         where: {
-//           runsname: req.params.id,
-//         },
-//       }
-//     )
-//     .then(() => {
-//       res.end("update success");
-//     });
-// };
+runsController.update = function (req, res) {
+  models.runs
+    .update(
+      {
+        runsname: req.body.runsname,
+      },
+      {
+        where: {
+          runsname: req.params.id,
+        },
+      }
+    )
+    .then(() => {
+      res.end("update success");
+    });
+};
 
 module.exports = runsController;
