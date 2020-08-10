@@ -37,4 +37,27 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+
+// for ManyToMany between project and run
+db.project.belongsToMany(db.run, {
+  through: 'project_run',
+  foreignKey: 'project_id'
+});
+
+db.run.belongsToMany(db.project, {
+  through: 'project_run',
+  foreignKey: 'run_id'
+});
+
+db.project_run.belongsTo(db.project, {
+  foreignKey: 'project_id'
+});
+
+db.project_run.belongsTo(db.run, {
+  foreignKey: 'run_id'
+});
+
+
+
+
 module.exports = db;

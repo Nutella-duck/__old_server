@@ -2,24 +2,23 @@
 
 module.exports = function (sequelize, DataTypes) {
   const Project = sequelize.define("project", {
-    projectId: {
+    project_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    projectname: {
+    project_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    apiKey: {
+    description: {
+      type: DataTypes.TEXT,
+    },
+    api_key: {
       type: DataTypes.STRING,
     },
   });
-
+    
   return Project;
 };

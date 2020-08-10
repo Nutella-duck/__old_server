@@ -1,7 +1,7 @@
 const express = require("express");
 const db = require("./models");
 const project = require("./routes/projectRoute");
-const runs = require("./routes/runsRoute");
+const run = require("./routes/runRoute");
 const app = express();
 const bodyParser = require("body-parser");
 
@@ -14,7 +14,7 @@ db.sequelize
   })
   .then(() => {
     console.log("DB Sync complete.");
-    //return db.sequelize.sync();
+    return db.sequelize.sync();
   })
   .catch((err) => {
     console.error("Unable to connect to the database:", err);
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 app.use("/admin", project);
 
-app.use("/admin", runs);
+app.use("/admin", run);
 
 app.listen(port, () => {
   console.log('Express listening on port', port);
