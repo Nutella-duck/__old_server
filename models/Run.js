@@ -23,6 +23,11 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true, 
     },
+    project_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+    },
     // created_time: {
     //   type: DataTypes.DATE,
     //   defaultValue: DataTypes.NOW,

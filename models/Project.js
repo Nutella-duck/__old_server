@@ -15,6 +15,14 @@ module.exports = function (sequelize, DataTypes) {
     description: {
       type: DataTypes.TEXT,
     },
+    privacy: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    created_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     api_key: {
       type: DataTypes.STRING,
     },

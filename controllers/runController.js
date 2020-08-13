@@ -2,18 +2,18 @@ const models = require("../models");
 
 let runController = {};
 
-// runController.create = function (req, res) {
-//   models.run
-//     .create({
-//       run_name: "testbeforesdk" //req.body.run_name,
-//       state: "none",
-//       project_name: "test",
-//     })
-//     .then(() => {
-//       res.send("create success");
-//     });
-// }; 
-
+runController.create = function (req, res) {
+  models.run
+    .create({
+      run_name: req.body.run_name,
+      project_id: req.body.project_id,
+      // state: "none",
+      // project_name: "test",
+    })
+    .then(() => {
+      res.send("create success");
+    });
+}; 
 
 runController.read = function (req, res) {
   models.run.findAll({}).then((runList) => {

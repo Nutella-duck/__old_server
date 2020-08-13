@@ -7,15 +7,18 @@ projectController.create = function (req, res) {
     .create({
       description: req.body.description,
       project_name: req.body.project_name,
+      privacy: req.body.privacy,
       api_key: Math.random().toString(36).slice(2),
+      //created_by: 
     })
     .then(() => {
-      res.send("create success");
+      res.send("A project is created");
     });
 };
 
 projectController.read = function (req, res) {
-  models.project.findAll({}).then((projectList) => {
+  models.project
+  .findAll({}).then((projectList) => {
     res.json(projectList);
   });
 };
