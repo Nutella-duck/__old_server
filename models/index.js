@@ -27,14 +27,37 @@ fs.readdirSync(__dirname)
     const model = require(path.join(__dirname, file))(sequelize, Sequelize);
     db[model.name] = model;
   });
-
+  
 Object.keys(db).forEach((modelName) => {
   if ("associate" in db[modelName]) {
     db[modelName].associate(db);
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+ db.sequelize = sequelize;
+ db.Sequelize = Sequelize;
+
+
+// // for ManyToMany between project and run
+// db.project.belongsToMany(db.run, {
+//   through: 'project_run',
+//   foreignKey: 'project_id'
+// });
+
+// db.run.belongsToMany(db.project, {
+//   through: 'project_run',
+//   foreignKey: 'run_id'
+// });
+
+// db.project_run.belongsTo(db.project, {
+//   foreignKey: 'project_id'
+// });
+
+// db.project_run.belongsTo(db.run, {
+//   foreignKey: 'run_id'
+// });
+
+db.project.hasMany(db.run, { foreignKey: 'project_id' });
+db.run.belongsTo(db.project);
 
 module.exports = db;
