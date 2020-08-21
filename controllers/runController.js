@@ -7,8 +7,6 @@ runController.create = function (req, res) {
     .create({
       run_name: req.body.run_name,
       project_id: req.body.project_id,
-      // state: "none",
-      // project_name: "test",
     })
     .then(() => {
       res.send("create success");
@@ -21,17 +19,17 @@ runController.read = function (req, res) {
   });
 };
 
-// runController.delete = function (req, res) {
-//   models.run
-//     .destroy({
-//       where: {
-//         run_name: req.params.id,
-//       },
-//     })
-//     .then(() => {
-//       res.end("delete success");
-//     });
-// };
+runController.delete = function (req, res) {
+  models.run
+    .destroy({
+      where: {
+        run_id: req.params.id,
+      },
+    })
+    .then(() => {
+      res.end("delete success");
+    });
+};
 
 runController.update = function (req, res) {
   models.run
@@ -41,7 +39,7 @@ runController.update = function (req, res) {
       },
       {
         where: {
-          run_name: req.params.id,
+          run_id: req.params.id,
         },
       }
     )

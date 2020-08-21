@@ -10,8 +10,6 @@ projectController.create = function (req, res) {
       project_name: req.body.project_name,
       privacy: req.body.privacy,
       api_key : generateSafeId(),
-      //api_key: Math.random().toString(36).slice(2),
-      //created_by: 
     })
     .then(() => {
       res.send("A project is created");
@@ -38,7 +36,7 @@ projectController.delete = function (req, res) {
   models.project
     .destroy({
       where: {
-        project_name: req.params.id,
+        project_id: req.params.id,
       },
     })
     .then(() => {
@@ -55,7 +53,7 @@ projectController.update = function (req, res) {
       },
       {
         where: {
-          project_name: req.params.id,
+          project_id: req.params.id,
         },
       }
     )

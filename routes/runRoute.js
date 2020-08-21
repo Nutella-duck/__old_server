@@ -16,7 +16,7 @@ router.get("/run/:id", eachrun.read);
 
 router.get("/run/project/:id", projectRun.read);
 
-// router.delete("/run/:id", run.delete);
+router.delete("/run/:id", run.delete);
 
 router.put("/run/:id", run.update);
 
