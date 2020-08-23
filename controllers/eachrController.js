@@ -6,7 +6,7 @@ eachrController.read = function (req, res) {
     models.run
     .findAll({
         where: { 
-            run_name: req.params.id,
+            run_id: req.params.id,
         },
     })
     .then((runList) => {

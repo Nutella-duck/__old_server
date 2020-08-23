@@ -4,16 +4,6 @@ const { Sequelize, sequelize } = require("../models");
 let eachpjController = {};
 
 eachpjController.read = function (req, res) {
-    // models.project
-    // .findAll({
-    //     where: { 
-    //         project_id: req.params.id,
-    //     },
-    // })
-    // .then((projectList) => {
-    //   res.json(projectList);
-    // });
-
     models.run
     .findAll({
         attributes: [[sequelize.fn('COUNT', sequelize.col('project_id')), 'total_run']],
@@ -24,7 +14,6 @@ eachpjController.read = function (req, res) {
     .then((projectList) => {
       res.json(projectList); 
     });
-
 };
 
 module.exports = eachpjController;

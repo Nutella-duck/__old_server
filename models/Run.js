@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     state: {
       type: DataTypes.STRING,
-      allowNull: true, //change later 
+      allowNull: true,
     },
     created_by: {
       type: DataTypes.STRING,
@@ -28,11 +28,6 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       foreignKey: true,
     },
-    // created_time: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW,
-    //   allowNull: false,
-    // },
   });
 
   return Run;
