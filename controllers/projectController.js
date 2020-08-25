@@ -1,15 +1,15 @@
 const models = require("../models");
-var generateSafeId = require('generate-safe-id');
+var generateSafeId = require("generate-safe-id");
 
 let projectController = {};
 
 projectController.create = function (req, res) {
   models.project
     .create({
-      description: req.body.description,
-      project_name: req.body.project_name,
-      privacy: req.body.privacy,
-      api_key : generateSafeId(),
+      description: req.body.params.description,
+      projectName: req.body.params.projectName,
+      privacy: req.body.params.privacy,
+      api_key: req.body.params.api_key,
     })
     .then(() => {
       res.send("A project is created");
@@ -19,17 +19,22 @@ projectController.create = function (req, res) {
 projectController.read = function (req, res) {
   let pageNum = req.body.page;
   let offset = 0;
-  if(pageNum >1){
-      offset = 6 * (pageNum-1);
+  if (pageNum > 1) {
+    offset = 6 * (pageNum - 1);
   }
 
   models.project
-  .findAll({
-    offset: offset,
-    limit : 6,
-  }).then((projectList) => {
-    res.json(projectList);
-  });
+    .findAll({
+      offset: offset,
+      limit: 6,
+    })
+    .then((projectList) => {
+      res.json(projectList);
+    });
+};
+
+projectController.getkey = function (req, res) {
+  res.send(generateSafeId());
 };
 
 projectController.delete = function (req, res) {

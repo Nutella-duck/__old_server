@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       autoIncrement: true,
     },
-    project_name: {
+    projectName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -27,6 +27,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
     },
   });
-    
+
   return Project;
 };
