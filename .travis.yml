@@ -11,5 +11,8 @@ branches:
   only:
     - master
 
+services:
+  - mysql
+
 script:
   - npm start
