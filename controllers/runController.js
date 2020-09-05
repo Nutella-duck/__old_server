@@ -7,11 +7,12 @@ runController.create = function (req, res) {
     .create({
       run_name: req.body.run_name,
       project_id: req.body.project_id,
+      state: req.body.state,
     })
     .then(() => {
       res.send("create success");
     });
-}; 
+};
 
 runController.read = function (req, res) {
   models.run.findAll({}).then((runList) => {

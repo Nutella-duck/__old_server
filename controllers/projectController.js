@@ -4,6 +4,7 @@ var generateSafeId = require("generate-safe-id");
 let projectController = {};
 
 projectController.create = function (req, res) {
+  console.log(req.body);
   models.project
     .create({
       description: req.body.params.description,
