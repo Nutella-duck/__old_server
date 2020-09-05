@@ -13,5 +13,3 @@ branches:
 
 services:
   - mysql
-
-script: – npm run build
