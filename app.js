@@ -1,5 +1,7 @@
 const express = require("express");
-const db = require("./models");
+const knex = require('knex');
+const knexFile = require('./knexfile').development;
+const db = knex(knexFile);
 const project = require("./routes/projectRoute");
 const run = require("./routes/runRoute");
 const app = express();
@@ -7,18 +9,9 @@ const bodyParser = require("body-parser");
 
 const port = 7000;
 
-db.sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .then(() => {
-    console.log("DB Sync complete.");
-    return db.sequelize.sync();
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
+// db.migrate.latest();
+// db.seed.run();
+// db.migrate.down();
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
