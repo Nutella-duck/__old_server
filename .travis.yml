@@ -5,6 +5,7 @@ node_js:
 
 before_script:
   - npm install mocha
+  - npm install -g yarn
 
 cache:
   directories:
@@ -12,7 +13,7 @@ cache:
 
 branches:
   only:
-    - master
+    - travisTest
 
 services:
   - mysql
