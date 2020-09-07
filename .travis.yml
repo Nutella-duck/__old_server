@@ -18,6 +18,9 @@ deploy:
     skip_cleanup: true
     local_dir: deploy
     wait-until-deployed: true
+    on:
+      repo: https://github.com/NutellaCoder/WebApiServer
+      branch: travisTest
 
 before_script:
   - npm install mocha
