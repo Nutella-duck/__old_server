@@ -20,6 +20,18 @@ deploy:
     wait-until-deployed: true
     on:
       branch: travisTest
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: nutella-build
+    key: nutellaApi-server.zip
+    bundle_type: zip
+    application: nutellaApiServer
+    deployment_group: nutellaApiServer-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+    on:
+      branch: travisTest
 
 before_script:
   - npm install mocha
