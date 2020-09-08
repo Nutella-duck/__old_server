@@ -10,9 +10,9 @@ exports.seed = function(knex) {
         ])
         .then(project => {
             return knex('run').insert([
-                {run_name: 'r1', project_id: project[0]},
-                {run_name: 'r2', project_id: project[0]},
-                {run_name: 'r3', project_id: project[0]}, // 왜 다른 index 접근이 안되는거지?
+                {runName: 'r1', projectId: project[0]},
+                {runName: 'r2', projectId: project[0]},
+                {runName: 'r3', projectId: project[0]}, // 왜 다른 index 접근이 안되는거지?
             ])
         })
         .then(() => {

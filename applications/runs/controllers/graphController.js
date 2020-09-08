@@ -1,17 +1,16 @@
-const knex = require("../../../db/knex");
+// const knex = require("../../../db/knex");
 
-let graphController = {};
+// let graphController = {};
 
-graphController.read = function (req, res) {
-    let pageNum = req.body.params.page;
-    let offset = pageNum > 1 ? 10 * (pageNum - 1) : 0;
-  
-    knex("run")
-      .select("runName", "state") // time, prjectname
-      .limit(10).offset(offset)  
-      .then((projectList) => {
-        res.json(projectList);
-      });
-}
+// graphController.read = function (req, res) {
+//     var index = req.body.params.index; // 원하는 지표
 
-module.exports = graphController;
+//     knex("projectInfo")
+//         .select("runName", "state") // time, prjectname
+//         .limit(10).offset(offset)  
+//         .then((graphList) => {
+//             res.json(graphList);
+//         }); 
+// }
+
+// module.exports = graphController;

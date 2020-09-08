@@ -9,16 +9,17 @@ projectCardController.read = function (req, res) {
     var subquery = knex
                     .select("project.projectId", "project.projectName", "project.privacy", "project.description")
                     .from("project")
-                    .join("run", "project.projectId", "run.projectId").as("results");
+                    .leftJoin("run", "project.projectId", "run.projectId").as("results");
 
-    // var subquery2 = knex
-    //                   .select("projectId", "projectName", "privacy", "description")
-    //                   .from("project").as("asdff")                 
-    //.from(subquery).groupBy("projectId").as("sdf");
-    
     knex
       .select()
-      .from("project")
+      .count("* as totalRun")
+      .from(subquery)
+      .groupBy("projectId")
+
+    // knex
+    //   .select()
+    //   .from("project")
       .limit(6).offset(offset) //name, des, totalrun, privacy, time
       .then((projectList) => {
         res.json(projectList);
@@ -30,16 +31,5 @@ projectCardController.read = function (req, res) {
 // 	select project.projectId, project.projectName from project join run on project.projectId = run.projectId
 // ) as prj
 // group by projectId;
-
-// .select("*", function(){
-//   this
-//     .count("*")
-//     .from(subquery)
-//     //.groupBy("projectId")
-//     .as("totalRun")
-// })
-// .from(subquery)
-// .groupBy("projectId")
-
 
 module.exports = projectCardController;
