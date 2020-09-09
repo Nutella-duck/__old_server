@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd /deploy
+cd /home/ec2-user/delpoy
 npm install
 npm start
