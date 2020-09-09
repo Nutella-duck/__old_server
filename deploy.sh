@@ -17,4 +17,4 @@ npm install
 
 echo "app 실행"
 
-npm start
+forever stop -c "npm start" ./
