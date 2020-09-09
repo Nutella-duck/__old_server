@@ -19,7 +19,7 @@ echo "package 설치 시작"
 
 npm install
 
-echo "app 실행"
+echo "app 실행 시작"
 
 nohup npm start 1>/dev/null 2>&1 &
 
