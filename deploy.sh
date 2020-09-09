@@ -14,3 +14,7 @@ cd /home/ec2-user/delpoy/WebApiServer
 echo "package 설치 시작"
 
 npm install
+
+echo "app 실행"
+
+npm start
