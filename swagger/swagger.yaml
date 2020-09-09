@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "Nutella API"
+  description: "Nutella API"
+
+servers:
+  - description: Nutella project api
+    url: http://ec2-3-34-251-160.ap-northeast-2.compute.amazonaws.com:7000
+    
+paths:
+  /admin/project/{id}:
+    get:
+      summary: Returns the number of total runs by ID
+      parameters:
+        - name: id
+          in: path #query
+          description: The ID of the project to return
+          required: true
+          schema: 
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_run:
+                    type: integer
+                    
+  /admin/project/:
+    post:
+      summary: Create a new project
+      parameters:
+        - name: project_id
+          in: query #body?
+          description: a
+          schema:
+            type: integer
+        - name: projectName
+          in: query
+          required: true          
+          description: b
+          schema:
+            type: string
+        - name: description
+          in: query
+          required: false
+          description: c
+          schema:
+            type: string
+        - name: privacy
+          in: query
+          required: true          
+          description: c
+          schema:
+            type: integer
+        - name: created_by
+          in: query
+          required: true          
+          description: c
+          schema:
+            type: string
+            
+      responses:
+        '200':
+          description: Echo POST

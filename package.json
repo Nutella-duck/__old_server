@@ -27,7 +27,9 @@
     "knex": "^0.21.5",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.3",
-    "swagger": "^0.7.5"
+    "swagger": "^0.7.5",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {}
 }

@@ -26,6 +26,8 @@ app.all("/*", function (req, res, next) {
   next();
 });
 
+app.use(express.static("swagger"));
+
 app.use(bodyParser.json());
 
 app.use("/admin", project);
