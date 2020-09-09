@@ -4,7 +4,7 @@
   "description": "API SERVER\r hi",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon app.js",
+    "start": "set NODE_ENV=server && node app.js",
     "test": "exit"
   },
   "repository": {

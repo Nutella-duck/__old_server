@@ -8,7 +8,6 @@ before_deploy:
   - zip -r nutellaApi-server *
   - mkdir -p deploy
   - mv nutellaApi-server.zip deploy/nutellaApi-server.zip
-  - mv .env deploy/.env
 
 deploy:
   - provider: s3

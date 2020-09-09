@@ -3,7 +3,12 @@ const Sequelize = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 
-dotenv.config();
+let configData =
+  process.env.NODE_ENV.trim() == "local"
+    ? require("../properties/LocalConfig.json")
+    : require("../properties/ServerConfig.json");
+
+dotenv.config({ path: path.join(__dirname, configData.dir) });
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -27,17 +32,17 @@ fs.readdirSync(__dirname)
     const model = require(path.join(__dirname, file))(sequelize, Sequelize);
     db[model.name] = model;
   });
-  
+
 Object.keys(db).forEach((modelName) => {
   if ("associate" in db[modelName]) {
     db[modelName].associate(db);
   }
 });
 
- db.sequelize = sequelize;
- db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-db.project.hasMany(db.run, { foreignKey: 'project_id' });
+db.project.hasMany(db.run, { foreignKey: "project_id" });
 db.run.belongsTo(db.project);
 
 module.exports = db;
