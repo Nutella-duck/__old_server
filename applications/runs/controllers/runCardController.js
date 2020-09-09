@@ -8,7 +8,7 @@ runCardController.read = function (req, res) {
     let offset = pageNum > 1 ? 10 * (pageNum - 1) : 0;
   
     knex("run")
-      .select("runName", "state") // time, prjectname
+      .select("runId", "runName", "state") // time, prjectname
       .limit(10).offset(offset)  
       .then((projectList) => {
         res.json(projectList);

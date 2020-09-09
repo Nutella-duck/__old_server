@@ -1,69 +1,240 @@
 openapi: 3.0.0
 info:
-  version: "1.0.0"
-  title: "Nutella API"
-  description: "Nutella API"
+  version: '1.0.0'
+  title: 'Nutella API'
+  description: 'Nutella API'
 
 servers:
-  - description: Nutella project api
+  - description: local server
+    url: http://localhost:7000
+  - description: nutella aws server
     url: http://ec2-3-34-251-160.ap-northeast-2.compute.amazonaws.com:7000
     
+tags:
+  - name: 'Project'
+    description: 'About projects'
+    externalDocs:
+      url: 'http://localhost:7000'
+  - name: 'Run'
+    description: 'About runs'
+    externalDocs:
+      url: 'http://localhost:7000'
+
 paths:
-  /admin/project/{id}:
-    get:
-      summary: Returns the number of total runs by ID
+  /admin/project/:
+    post:
+      tags: 
+        - "Project"
+      summary: Create a new project
       parameters:
-        - name: id
-          in: path #query
-          description: The ID of the project to return
-          required: true
-          schema: 
-            type: integer
+        - $ref: '#/components/parameters/projectName'
+        - $ref: '#/components/parameters/description'
+        - $ref: '#/components/parameters/privacy'                   
+      responses:
+        '200':
+          description: Echo POST
+    get:
+      tags: 
+        - "Project"
+      summary: Returns the info of six projects by page# for My Page
+      parameters:
+        - $ref: '#/components/parameters/page'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  total_run:
-                    type: integer
-                    
-  /admin/project/:
-    post:
-      summary: Create a new project
+                $ref: '#/components/schema/ProjectCard'
+
+  /admin/project/{id}:
+    get:
+      tags: 
+        - "Project"
+      summary: Returns the info of one project by projectId for workspace
       parameters:
-        - name: project_id
-          in: query #body?
-          description: a
-          schema:
-            type: integer
-        - name: projectName
-          in: query
-          required: true          
-          description: b
-          schema:
-            type: string
-        - name: description
-          in: query
-          required: false
-          description: c
-          schema:
-            type: string
-        - name: privacy
-          in: query
-          required: true          
-          description: c
-          schema:
-            type: integer
-        - name: created_by
-          in: query
-          required: true          
-          description: c
-          schema:
-            type: string
-            
+        - $ref: '#/components/parameters/pjId'
       responses:
         '200':
-          description: Echo POST
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Project'
+    delete:
+      tags: 
+        - "Project"
+      summary: Delete this project by projectId
+      parameters:
+        - $ref: '#/components/parameters/pjId'
+      responses:
+        '200':
+          description: OK
+    put:
+      tags: 
+        - "Project" 
+      summary: Change the info of this project by projectId
+      parameters:
+        - $ref: '#/components/parameters/pjId'
+        - $ref: '#/components/parameters/projectName' #required false 해야함
+        - $ref: '#/components/parameters/description'
+        - $ref: '#/components/parameters/privacy'         
+      responses:
+        '200':
+          description: OK            
+
+  /admin/run/:
+    get:
+      tags: 
+        - "Run"
+      summary: Returns the info of ten runs by page# for My page
+      parameters:
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/RunCard'                    
+
+  /admin/run/{id}:
+    get:
+      tags: 
+        - "Run"
+      summary: Returns the info of runs by projectId for workspace
+      parameters:
+        - $ref: '#/components/parameters/pjId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Run'
+    delete:
+      tags: 
+        - "Run"
+      summary: Delete this run by runId
+      parameters:
+        - $ref: '#/components/parameters/rId'
+      responses:
+        '200':
+          description: OK
+    put:
+      tags: 
+        - "Run" 
+      summary: Change the info of this run by runId
+      parameters:
+        - $ref: '#/components/parameters/rId'
+        - $ref: '#/components/parameters/runName'   
+      responses:
+        '200':
+          description: OK 
+
+components:
+  schema:
+    Project:
+      type: "object"
+      properties:
+        projectId:
+          type: "integer"
+        projectName:
+          type: "string"
+        # totalRuns:
+        #   type: "integer"    
+    ProjectCard:
+      type: "object"
+      properties:
+        projectId:
+          type: "integer"
+        projectName:
+          type: "string"
+        description:
+          type: "string" #text?
+        privacy:
+          type: "integer"
+        # totalRuns:
+        #   type: "integer"
+        # createdTime:
+        #   type: "date"
+    Run:
+      type: "object"
+      properties:
+        runId:
+          type: "integer"
+        runName:
+          type: "string"
+        state:
+          type: "string"          
+        # createdTime:
+        #   type: "date"  
+        # createdBy:
+        #   type: "string"
+        #  h.p. index..       
+    RunCard:
+      type: "object"
+      properties:
+        runId:
+          type: "integer"
+        runName:
+          type: "string"
+        projectName:
+          type: "string"
+        state:
+          type: "string"          
+        # createdTime:
+        #   type: "date"          
+          
+  parameters:
+    # req.body.params.
+    projectName:          
+      - name: projectName
+        in: query #body?
+        required: true          
+        description: the name of this project
+        schema:
+          type: string
+    runName:          
+      - name: runName
+        in: query #body?
+        required: true          
+        description: the name of this run
+        schema:
+          type: string          
+    description:
+      - name: description
+        in: query
+        required: false
+        description: the description of this project
+        schema:
+          type: string #text?
+    privacy:          
+      - name: privacy
+        in: query
+        required: false          
+        description: 1 means public and 0 means private
+        schema:
+          type: integer
+    page:          
+      - name: page
+        in: query
+        required: true          
+        description: The number of the page
+        schema:
+          type: integer          
+    # req.params.      
+    pjId:
+      - name: id
+        in: path
+        requried: true
+        description: The ID of the project that you want to control
+        schema:
+          type: integer           
+    rId:
+      - name: id
+        in: path
+        requried: true
+        description: The ID of the run that you want to control
+        schema:
+          type: integer                  

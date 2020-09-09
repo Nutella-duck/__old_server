@@ -9,7 +9,7 @@ projectController.create = function (req, res) {
     .insert({
       description: req.body.params.description,
       projectName: req.body.params.projectName,
-      privacy: req.body.privacy,
+      privacy: req.body.privacy || 1,
       apiKey: req.body.apiKey,
     })
     .then(() => {
