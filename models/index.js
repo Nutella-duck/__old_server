@@ -8,6 +8,7 @@ let configData =
     ? require("../properties/LocalConfig.json")
     : require("../properties/ServerConfig.json");
 
+console.log(configData.dir);
 dotenv.config({ path: path.join(__dirname, configData.dir) });
 
 const sequelize = new Sequelize(
