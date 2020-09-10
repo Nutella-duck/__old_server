@@ -16,27 +16,26 @@ exports.up = function(knex) {
                 table.integer('runTime');
                 table.string('createdBy');
                 table.integer('projectId').unsigned().references('project.projectId');
+                table.timestamps(true, true); //?
             })
-            // .createTableIfNotExists('modelInfo', (table) => {
-            //     table.increments('runId').primary();
-            //     table.string('runName').notNullable();
-            //     table.boolean('reinit');
-            //     table.float('accuracy');
-            //     table.float('loss');
-            //     table.float('precision');
-            //     table.float('recall');
-            //     table.float('cpu');
-            //     table.float('net');
-            //     table.float('net');
-            //     table.string('disk');
-            //     table.integer('runId').unsigned().references('run.runId');
-            // })
+            .createTableIfNotExists('step', (table) => {
+                table.increments('stepId').primary();
+                table.boolean('reinit');
+                table.float('accuracy');
+                table.float('loss');
+                table.float('precision');
+                table.float('recall');
+                table.float('cpu');
+                table.float('gpu');
+                table.float('net');
+                table.string('disk');
+                table.integer('runId').unsigned().references('run.runId'); //time 필?
+            })
 };
 
-
-    // project 정보들, run 개수 
 exports.down = function(knex) {
     // return knex.schema
     //     .dropTable('project')
     //     .dropTable('run')
+    //     .dropTable('step')    
 };

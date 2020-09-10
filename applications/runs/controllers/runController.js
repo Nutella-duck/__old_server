@@ -17,8 +17,9 @@ runController.create = function (req, res) {
 
 runController.read = function (req, res) {
   knex("run")
-    .select() // name, state, time, by, runtime, 지표, h.p
+    .select()
     .where("projectId", req.params.id)
+    .leftJoin("step", "run.runId", "step.runId")
     .then((runList) => {
     res.json(runList);
   });

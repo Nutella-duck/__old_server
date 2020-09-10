@@ -6,30 +6,17 @@ let projectCardController = {};
 projectCardController.read = function (req, res) {
     let pageNum = req.body.params.page;
     let offset = pageNum > 1 ? 6 * (pageNum - 1) : 0;
-    var subquery = knex
-                    .select("project.projectId", "project.projectName", "project.privacy", "project.description")
-                    .from("project")
-                    .leftJoin("run", "project.projectId", "run.projectId").as("results");
 
-    knex
-      .select()
-      .count("* as totalRun")
-      .from(subquery)
-      .groupBy("projectId")
-
-    // knex
-    //   .select()
-    //   .from("project")
-      .limit(6).offset(offset) //name, des, totalrun, privacy, time
+    knex("project")
+      .select("project.projectId", "project.projectName", "project.description", "project.privacy", "project.created_at", function() {
+        this.count("run.projectId").as("totalRun")
+      })
+      .leftJoin("run", "project.projectId", "run.projectId").as("results")
+      .groupBy("project.projectId")
+      .limit(6).offset(offset)
       .then((projectList) => {
         res.json(projectList);
       });
 };
-
-// select *, count(*) as totalRun
-// from ( 
-// 	select project.projectId, project.projectName from project join run on project.projectId = run.projectId
-// ) as prj
-// group by projectId;
 
 module.exports = projectCardController;

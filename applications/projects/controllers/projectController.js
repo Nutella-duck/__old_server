@@ -23,8 +23,12 @@ projectController.getkey = function (req, res) {
 
 projectController.read = function (req, res) {
   knex("project")
-      .where("projectId", req.params.id)
-      .select("projectId", "projectName") // totalruns
+      .where("project.projectId", req.params.id)
+      .select("project.projectId", "project.projectName", function() {
+        this.count("run.projectId").as("totalRun")
+      })
+      .leftJoin("run", "project.projectId", "run.projectId").as("results")
+      .groupBy("project.projectId")
       .then((projectList) => {
       res.json(projectList);
   });
