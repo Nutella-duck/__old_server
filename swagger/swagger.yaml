@@ -137,7 +137,31 @@ paths:
   #     responses:
   #       '200':
   #         description: OK 
+  
+  /admin/project:
+    get:
+      tags: 
+        - "Project"
+      summary: Returns the info of six projects by page# for My Page
+      parameters:
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: OK
+          # content:
+          #   application/json:
+          #     schema:
+          #       $ref: '#/components/schema/ProjectCard'
 
+components:
+  parameters:
+    page:          
+      - name: page
+        in: query
+        required: true          
+        description: The number of the page
+        schema:
+          type: integer 
   # schema:
   #   Project:
   #     type: "object"

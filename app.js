@@ -4,6 +4,7 @@ const knexFile = require('./knexfile').development;
 const db = knex(knexFile);
 const project = require("./routes/projectRoute");
 const run = require("./routes/runRoute");
+const graph = require("./routes/graphRoute");
 const app = express();
 const bodyParser = require("body-parser");
 
@@ -33,6 +34,8 @@ app.use(bodyParser.json());
 app.use("/admin", project);
 
 app.use("/admin", run);
+
+app.use("/admin", graph);
 
 app.listen(port, () => {
   console.log("Express listening on port", port);

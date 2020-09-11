@@ -11,8 +11,8 @@ runCardController.read = function (req, res) {
       .select("run.runId", "run.runName", "run.state", "run.updated_at", "project.projectName") // db 수정 후 run.updatedAt 변경
       .join("project", "run.projectId", "project.projectId")
       .limit(10).offset(offset)  
-      .then((projectList) => {
-        res.json(projectList);
+      .then((runCardList) => {
+        res.json(runCardList);
       });
 }
 

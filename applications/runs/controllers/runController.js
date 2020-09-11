@@ -18,7 +18,10 @@ runController.create = function (req, res) {
 runController.read = function (req, res) {
   knex("run")
     .select()
-    .where("projectId", req.params.id)
+    .where({
+      "run.projectId": req.params.id,
+      "step.stepNumber": 1 // 하이퍼파라미터 받은 다음에는 최종 값으로
+    })
     .leftJoin("step", "run.runId", "step.runId")
     .then((runList) => {
     res.json(runList);

@@ -14,8 +14,8 @@ projectCardController.read = function (req, res) {
       .leftJoin("run", "project.projectId", "run.projectId").as("results")
       .groupBy("project.projectId")
       .limit(6).offset(offset)
-      .then((projectList) => {
-        res.json(projectList);
+      .then((projectCardList) => {
+        res.json(projectCardList);
       });
 };
 

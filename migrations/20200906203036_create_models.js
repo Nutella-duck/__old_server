@@ -20,6 +20,7 @@ exports.up = function(knex) {
             })
             .createTableIfNotExists('step', (table) => {
                 table.increments('stepId').primary();
+                table.integer('stepNumber');
                 table.boolean('reinit');
                 table.float('accuracy');
                 table.float('loss');
