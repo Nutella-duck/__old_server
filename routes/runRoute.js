@@ -13,8 +13,6 @@ router.get("/run", runCard.read);
 // workspace에서 프로젝트 id에 따라 불러오기
 router.get("/run/:id", run.read);
 
-// router.get("/run/project/:id", projectRun.read);
-
 // run id로 run 삭제
 router.delete("/run/:id", run.delete);
 

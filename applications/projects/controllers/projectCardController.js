@@ -4,7 +4,7 @@ const { subscribe } = require("../../../routes/runRoute");
 let projectCardController = {};
 
 projectCardController.read = function (req, res) {
-    let pageNum = req.body.params.page;
+    let pageNum = req.query.page;
     let offset = pageNum > 1 ? 6 * (pageNum - 1) : 0;
 
     knex("project")

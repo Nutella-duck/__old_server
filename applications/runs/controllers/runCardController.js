@@ -4,7 +4,7 @@ let runCardController = {};
 
 // 10개였는지 확인하기
 runCardController.read = function (req, res) {
-    let pageNum = req.body.params.page;
+    let pageNum = req.query.page;
     let offset = pageNum > 1 ? 10 * (pageNum - 1) : 0;
   
     knex("run")

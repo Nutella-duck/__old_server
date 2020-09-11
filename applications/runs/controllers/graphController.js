@@ -4,7 +4,7 @@ let graphController = {};
 
 graphController.read = function (req, res) {
     var runIndex = req.params.id;
-    var hpIndex = req.body.params.index; // 원하는 지표
+    var hpIndex = req.query.index; // 원하는 지표
 
     knex("step")
         .where("step.runId", runIndex)

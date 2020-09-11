@@ -7,10 +7,10 @@ let projectController = {};
 projectController.create = function (req, res) {
   knex("project")
     .insert({
-      description: req.body.params.description,
       projectName: req.body.params.projectName,
-      privacy: req.body.privacy || 1,
-      apiKey: req.body.apiKey,
+      description: req.body.params.description,
+      privacy: req.body.params.privacy || 1,
+      apiKey: req.body.paramsapiKey,
     })
     .then(() => {
       res.send("A project is created");
