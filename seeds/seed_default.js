@@ -10,16 +10,25 @@ exports.seed = function(knex) {
         ])
         .then(project => {
             return knex('run').insert([
-                {runName: 'r1', projectId: project[0]},
-                {runName: 'r2', projectId: project[0]},
-                {runName: 'r3', projectId: project[0]}, // 왜 다른 index 접근이 안되는거지? "project"아니고 project
+                {runName: 'r1', projectId: 1},
+                {runName: 'r2', projectId: 1},
+                {runName: 'r3', projectId: 1},
+                {runName: 'r4', projectId: 2}, 
             ])
         })
         .then(run => {
           return knex('step').insert([
-              {stepNumber: 1, runId: run[0], accuracy: 1.2}, 
-              {stepNumber: 2, runId: run[0], accuracy: 2.2}, 
-              {stepNumber: 3, runId: run[0], accuracy: 3.2}, 
+              {stepNumber: 1, runId: 1, accuracy: 0.80, loss: 3.8}, 
+              {stepNumber: 2, runId: 1, accuracy: 0.85, loss: 3.5}, 
+              {stepNumber: 3, runId: 1, accuracy: 0.88, loss: 3.1},
+              {stepNumber: 1, runId: 2, accuracy: 0.70, loss: 2.8}, 
+              {stepNumber: 2, runId: 2, accuracy: 0.75, loss: 2.5}, 
+              {stepNumber: 3, runId: 2, accuracy: 0.78, loss: 2.1}, 
+              {stepNumber: 1, runId: 2, accuracy: 0.90, loss: 1.8}, 
+              {stepNumber: 2, runId: 3, accuracy: 0.95, loss: 1.5}, 
+              {stepNumber: 3, runId: 3, accuracy: 0.98, loss:1.1}, 
+              {stepNumber: 1, runId: 3, accuracy: 0.90, loss: 1.8}, 
+              {stepNumber: 2, runId: 4, accuracy: 0.95, loss: 1.5},  
           ])
       })
         .then(() => {
