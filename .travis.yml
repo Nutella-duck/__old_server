@@ -43,7 +43,7 @@ cache:
 
 branches:
   only:
-    - travisTest
+    - master
 
 services:
   - mysql
