@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 echo "nvm 설정"
 
 export NVM_DIR="$HOME/.nvm"

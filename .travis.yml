@@ -19,7 +19,7 @@ deploy:
     local_dir: deploy
     wait-until-deployed: true
     on:
-      branch: travisTest
+      branch: master
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
@@ -31,7 +31,7 @@ deploy:
     region: ap-northeast-2
     wait-until-deployed: true
     on:
-      branch: travisTest
+      branch: master
 
 before_script:
   - npm install mocha
