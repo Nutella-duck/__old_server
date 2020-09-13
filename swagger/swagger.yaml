@@ -3,12 +3,6 @@ info:
   version: '1.0.0'
   title: 'Nutella API'
   description: 'Nutella API'
-
-# servers:
-#   - description: local server
-#     url: http://localhost:7000
-#   - description: nutella aws server
-#     url: http://ec2-3-34-251-160.ap-northeast-2.compute.amazonaws.com:7000
     
 tags:
   - name: 'Project'

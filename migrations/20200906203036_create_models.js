@@ -30,7 +30,7 @@ exports.up = function(knex) {
                 table.float('gpu');
                 table.float('net');
                 table.string('disk');
-                table.integer('runId').unsigned().references('run.runId'); //time 필?
+                table.integer('runId').unsigned().references('run.runId');
             })
 };
 
