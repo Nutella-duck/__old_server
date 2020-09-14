@@ -1,5 +1,13 @@
 const dotenv = require("dotenv");
-dotenv.config();
+const path = require("path");
+const env = process.env.NODE_ENV || 'local';
+
+let configData =
+  env == "local"
+    ? require("./properties/LocalConfig.json")
+    : require("./properties/ServerConfig.json");
+
+dotenv.config({ path: path.join(__dirname, configData.dir) });
 
 module.exports = {
   development: {    
