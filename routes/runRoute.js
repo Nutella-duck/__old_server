@@ -4,9 +4,6 @@ const router = express.Router();
 const run = require("../applications/runs/controllers/runController.js");
 const runCard = require("../applications/runs/controllers/runCardController.js");
 
-// run 새로 만들 때, test용
-router.post("/run", run.create);
-
 // mypage에서 runCard 불러옴 10개씩
 router.get("/run", runCard.read);
 
