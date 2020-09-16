@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "knex": "knex",
-    "start": "export NODE_ENV=development && node app.js",
+    "start": "export NODE_ENV=production && node app.js",
     "test": "exit"
   },
   "repository": {
