@@ -86,7 +86,20 @@ paths:
         - $ref: '#/components/parameters/pjId'
       responses:
         '200':
-          description: OK            
+          description: OK 
+
+  /admin/projects/list:
+    get:
+      tags: 
+        - "Project"
+      summary: 모든 프로젝트 이름 리스트
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Project3'                     
 
   /admin/run:
     get:
@@ -181,7 +194,15 @@ components:
         projectName:
           type: "string"
         totalRuns:
-          type: "integer"            
+          type: "integer" 
+
+    Project3:
+      type: "object"
+      properties:
+        projectId:
+          type: "integer"
+        projectName:
+          type: "string"               
         
     ProjectCard:
       type: "object"
