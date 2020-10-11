@@ -4,7 +4,7 @@ const env = require("./properties/Config.json");
 console.log(env.server);
 
 let configData =
-  env.server.trim() == "development"
+  env.local.trim() == "development"
     ? require("./properties/LocalConfig.json")
     : require("./properties/ServerConfig.json");
 
@@ -18,6 +18,9 @@ module.exports = {
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+    },
+    migrations: {
+      tableName: "nutellaMigrations",
     },
   },
 
