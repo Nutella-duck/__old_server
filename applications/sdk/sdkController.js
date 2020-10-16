@@ -4,8 +4,7 @@ let sdkController = {};
 
 sdkController.create = function (req, res) {
   let data = JSON.stringify(req.body);
-  console.log(data);
-  console.log(typeof data);
+
   knex("step")
     .insert({ indicator: data })
     .then(() => {

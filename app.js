@@ -7,12 +7,15 @@ const run = require("./routes/runRoute");
 const graph = require("./routes/graphRoute");
 const app = express();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const port = 7000;
 
 const sdkRouter = require("./routes/sdkRoute");
 
 const authRouter = require("./routes/authRoute");
+
+const jwtMiddleWare = require("./applications/auth/jwtMiddleware");
 
 //db.migrate.latest();
 //db.seed.run();
@@ -34,6 +37,8 @@ app.all("/*", function (req, res, next) {
 app.use(express.static("swagger"));
 
 app.use(bodyParser.json());
+app.use(cookieParser());
+//app.use(jwtMiddleWare);
 
 app.use("/admin", project);
 

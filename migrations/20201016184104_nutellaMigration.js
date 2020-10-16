@@ -10,9 +10,9 @@ exports.up = function (knex) {
       table.timestamps(true, true);
     })
     .createTableIfNotExists("run", (table) => {
-      table.increments("runId").primary();
-      table.string("runName").notNullable();
+      table.string("runName").primary();
       table.string("state");
+      table.boolean("reinit");
       table.integer("runTime");
       table.string("createdBy");
       table.integer("projectId").unsigned().references("project.projectId");
@@ -21,9 +21,8 @@ exports.up = function (knex) {
     .createTableIfNotExists("step", (table) => {
       table.increments("stepId").primary();
       table.integer("stepNumber");
-      table.boolean("reinit");
       table.string("indicator");
-      table.integer("runId").unsigned().references("run.runId");
+      table.string("runName").references("run.runName");
     });
 };
 
