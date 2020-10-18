@@ -5,4 +5,6 @@ const sdkController = require("../applications/sdk/sdkController.js");
 
 router.post("/sdk", sdkController.create);
 
+router.get("/sdk", sdkController.read);
+
 module.exports = router;
