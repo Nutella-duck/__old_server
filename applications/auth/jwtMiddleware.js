@@ -1,22 +1,29 @@
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie");
+const cookieParser = require("cookie-parser");
 
+const getToken = (cookie) => {
+  let idx = cookie.indexOf("=");
+  return cookie.substring(idx + 1, cookie.length);
+};
 const jwtMiddleware = (req, res, next) => {
-  console.log(req.headers.cookie);
-  const token = cookie.parse(req.headers.cookie);
-  console.log("token : " + token);
-
+  const token = getToken(req.headers.cookie);
+  console.log(token);
   if (!token) {
     console.log("토큰 없는경우");
     return next();
   }
   try {
-    console.log("토큰 있는 경우 : " + token.access_token);
-    const decoded = jwt.verify("j%3A%7B%7D", process.env.JWT_SECRET);
-    console.log("decoded : " + decoded);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decoded : " + decoded.username);
+    const user = decoded.username;
+    if (!user) {
+      res.status(400).end("로그인 중이 아닙니다.");
+    }
 
     return next();
   } catch (e) {
+    console.log(e);
     return next();
   }
 };

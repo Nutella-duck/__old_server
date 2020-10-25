@@ -34,11 +34,8 @@ app.all("/*", function (req, res, next) {
   next();
 });
 
-app.use(express.static("swagger"));
-
 app.use(bodyParser.json());
-app.use(cookieParser());
-//app.use(jwtMiddleWare);
+app.use(express.static("swagger"));
 
 app.use("/admin", project);
 
@@ -49,6 +46,8 @@ app.use("/admin", graph);
 app.use("/admin", sdkRouter);
 
 app.use("/auth", authRouter);
+
+//app.use(jwtMiddleWare);
 
 app.listen(port, () => {
   console.log("Express listening on port", port);

@@ -10,7 +10,8 @@ exports.up = function (knex) {
       table.timestamps(true, true);
     })
     .createTableIfNotExists("run", (table) => {
-      table.string("runName").primary();
+      table.increments("runId").primary();
+      table.string("runName").notNullable();
       table.string("state");
       table.boolean("reinit");
       table.integer("runTime");
@@ -22,7 +23,7 @@ exports.up = function (knex) {
       table.increments("stepId").primary();
       table.integer("stepNumber");
       table.string("indicator");
-      table.string("runName").references("run.runName");
+      table.string("runId").references("run.runId");
     });
 };
 

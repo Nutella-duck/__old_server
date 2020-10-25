@@ -3,7 +3,11 @@ const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const { param } = require("../../routes/runRoute");
 const jwt = require("jsonwebtoken");
-
+const NodeRsa = require("node-rsa"); // 대기
+const key = new NodeRsa({ b: 512 }); // 대기
+const publicKey = key.exportKey("pkcs1-public-pem"); //대기
+const privateKey = key.exportKey("pkcs8-private-pem"); //대기
+let token = "";
 let authController = {};
 //sha256, isms,
 const setPassword = async (password) => {
@@ -18,17 +22,9 @@ const checkpassword = async (password, dbPassword) => {
 };
 
 const generateToken = async (username) => {
-  // username 보다 database id 를 쓰는게 더 좋음.
-  // jwt sign 에 넣는 값들에 대한 의미 파악 필요.
-  // 동일 아이디로 한명만 접속 or 여러명 접속.
-  // api 타임을 저장해두고 그 시간과 비교해두고 넘어갈 시 로그아웃으로 판단.
-  // http 1.1 클라이언트가 서버 리퀘스트보내야만 리스폰이 오는 구조.
-  // 웹소켓은 위의 상황이 가능.  (http 2.0 부터는 양방향이 가능. )
-  // 데이터베이스 인덱스 작업 필요. (학습 필요)
-  const token = jwt.sign({ username: username }, process.env.JWT_SECRET, {
+  token = jwt.sign({ username: username }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
-  return token;
 };
 
 const userExistsChecker = async (userName) => {
@@ -88,7 +84,7 @@ authController.register = async (req, res) => {
 
     await userSaveDatabase(username, hashPassword);
 
-    const token = generateToken(username);
+    generateToken(username);
     res.cookie("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
@@ -103,6 +99,7 @@ authController.register = async (req, res) => {
 
 authController.login = async (req, res) => {
   // 에러 발생 시 특정 코드를 정하는게 좋음.
+
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -123,7 +120,7 @@ authController.login = async (req, res) => {
       return res.status(400).end("비밀번호가 올바르지 않습니다.");
     }
 
-    const token = generateToken(username);
+    generateToken(username);
 
     res.cookie("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -133,6 +130,11 @@ authController.login = async (req, res) => {
   } catch (e) {
     res.status(400).end(e);
   }
+};
+
+authController.logout = async (req, res) => {
+  res.cookie("access_token");
+  res.end("로그아웃 완료");
 };
 
 module.exports = authController;
