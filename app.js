@@ -7,7 +7,6 @@ const run = require("./routes/runRoute");
 const graph = require("./routes/graphRoute");
 const app = express();
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 
 const port = 7000;
 
@@ -37,6 +36,10 @@ app.all("/*", function (req, res, next) {
 app.use(bodyParser.json());
 app.use(express.static("swagger"));
 
+app.use("/auth", authRouter);
+
+app.use(jwtMiddleWare); // 토큰 검증 미들웨어.
+
 app.use("/admin", project);
 
 app.use("/admin", run);
@@ -44,10 +47,6 @@ app.use("/admin", run);
 app.use("/admin", graph);
 
 app.use("/admin", sdkRouter);
-
-app.use("/auth", authRouter);
-
-//app.use(jwtMiddleWare);
 
 app.listen(port, () => {
   console.log("Express listening on port", port);

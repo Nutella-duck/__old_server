@@ -241,6 +241,34 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schema/HpoRun"
+  /admin/hpo/bestResult/{id}:
+    get:
+      tags:
+        - "HPO"
+      summary: hpo 가장 적합한 값 받기
+      parameters:
+        - $ref: "#/components/parameters/pjId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/HpoBestValue"
+  /admin/hpo/importances/{id}:
+    get:
+      tags:
+        - "HPO"
+      summary: hpo 각 파라미터에 따른 하이퍼파라미터 중요도 받기.
+      parameters:
+        - $ref: "#/components/parameters/pjId"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/HpoImportance"
 
 components:
   schema:
@@ -412,6 +440,22 @@ components:
             type: "object"
           runName:
             type: "string"
+    HpoBestValue:
+      type: "object"
+      properties:
+        bestParmeter:
+          type: "object"
+    HpoImportance:
+      type: "object"
+      properties:
+        parmeter:
+          type: "string"
+        configParmeter:
+          type: "string"
+        importance:
+          type: "float"
+        Correlation:
+          type: "float"
 
   parameters:
     # req.query.

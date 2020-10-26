@@ -7,6 +7,8 @@ exports.up = function (knex) {
       table.integer("privacy");
       table.string("apiKey");
       table.string("createdBy");
+      table.integer("userId").unsigned().notNullable();
+      table.foreign("userId").references("user.userId");
       table.timestamps(true, true);
     })
     .createTableIfNotExists("run", (table) => {
@@ -16,14 +18,16 @@ exports.up = function (knex) {
       table.boolean("reinit");
       table.integer("runTime");
       table.string("createdBy");
-      table.integer("projectId").unsigned().references("project.projectId");
+      table.integer("projectId").unsigned().notNullable();
+      table.foreign("projectId").references("project.projectId");
       table.timestamps(true, true); //?
     })
     .createTableIfNotExists("step", (table) => {
       table.increments("stepId").primary();
       table.integer("stepNumber");
       table.string("indicator");
-      table.string("runId").references("run.runId");
+      table.integer("runId").unsigned().notNullable();
+      table.foreign("runId").references("run.runId");
     });
 };
 
