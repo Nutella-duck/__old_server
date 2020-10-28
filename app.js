@@ -14,6 +14,8 @@ const sdkRouter = require("./routes/sdkRoute");
 
 const authRouter = require("./routes/authRoute");
 
+const hpoRouter = require("./routes/hpoRoute");
+
 const jwtMiddleWare = require("./applications/auth/jwtMiddleware");
 
 //db.migrate.latest();
@@ -47,6 +49,8 @@ app.use("/admin", run);
 app.use("/admin", graph);
 
 app.use("/admin", sdkRouter);
+
+app.use("/admin", hpoRouter);
 
 app.listen(port, () => {
   console.log("Express listening on port", port);

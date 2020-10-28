@@ -26,7 +26,7 @@ const getUserId = async (userName) => {
 const setPassword = async (password) => {
   //sha256 하고 난후 bcrypt 를 해주는게 좋음.
   //const passwordCrypto = crypto.createHash('sha256').update(password).digest('base64');
-  const passwordHash = await bcrypt.hash(passwordCrypto, 10);
+  const passwordHash = await bcrypt.hash(password, 10);
   console.log(passwordHash);
 
   return passwordHash;

@@ -212,7 +212,7 @@ paths:
       responses:
         "200":
           description: 전송 성공
-  /admin/hpo/project:
+  /admin/hpo/hpoProject:
     post:
       tags:
         - "HPO"
@@ -227,6 +227,18 @@ paths:
       responses:
         "200":
           description: 전송 성공
+    get:
+      tags:
+        - "HPO"
+      summary: hpo project 정보가져오기
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/HpoProjectGet"
+
   /admin/hpo/result/{id}:
     get:
       tags:
@@ -453,9 +465,23 @@ components:
         configParmeter:
           type: "string"
         importance:
-          type: "float"
+          type: "number"
+          format: double
         Correlation:
-          type: "float"
+          type: "number"
+          format: double
+
+    HpoProjectGet:
+      type: "array"
+      items:
+        type: "object"
+        properties:
+          hpoName:
+            type: "string"
+          description:
+            type: "string"
+          createBy:
+            type: "string"
 
   parameters:
     # req.query.
