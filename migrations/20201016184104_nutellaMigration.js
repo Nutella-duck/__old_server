@@ -15,7 +15,6 @@ exports.up = function (knex) {
       table.increments("runId").primary();
       table.string("runName").notNullable();
       table.string("state");
-      table.boolean("reinit");
       table.integer("runTime");
       table.string("createdBy");
       table.integer("projectId").unsigned().notNullable();
