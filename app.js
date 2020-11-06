@@ -40,7 +40,7 @@ app.use(express.static("swagger"));
 
 app.use("/auth", authRouter);
 
-app.use(jwtMiddleWare); // 토큰 검증 미들웨어.
+//app.use(jwtMiddleWare); // 토큰 검증 미들웨어.
 
 app.use("/admin", project);
 

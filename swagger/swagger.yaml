@@ -281,6 +281,48 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schema/HpoImportance"
+  /auth/register:
+    post:
+      tags:
+        - "Auth"
+      summary: 회웝가입.
+      requestBody:
+        description: 회원가입.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schema/authInfo"
+      responses:
+        "200":
+          description: 전송 성공
+  /auth/login:
+    post:
+      tags:
+        - "Auth"
+      summary: 로그인.
+      requestBody:
+        description: 로그인.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schema/authInfo"
+      responses:
+        "200":
+          description: 전송 성공
+  /auth/logout:
+    get:
+      tags:
+        - "Auth"
+      summary: 로그아웃.
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
 
 components:
   schema:
@@ -466,10 +508,10 @@ components:
           type: "string"
         importance:
           type: "number"
-          format: double
+          format: float
         Correlation:
           type: "number"
-          format: double
+          format: float
 
     HpoProjectGet:
       type: "array"
@@ -482,6 +524,13 @@ components:
             type: "string"
           createBy:
             type: "string"
+
+    authInfo:
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
 
   parameters:
     # req.query.

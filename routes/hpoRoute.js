@@ -14,4 +14,7 @@ router.get("/hpo/result/:id", hpoRunController.read);
 
 router.post("/hpo/hpoProject", hpoProjectController.create);
 
+router.get("/hpo/config/:id", hpoConfigController.read);
+router.post("/hpo/config", hpoConfigController.create);
+
 module.exports = router;
