@@ -11,8 +11,10 @@ sdkController.create = function (req, res) {
   console.log(data)
   knex("step")
     .insert({ 
-      indicator: data, 
-      // runName: name
+      indicator: data,
+      stepNumber: 0,
+      runId: 1
+      // runId랑 stepNumber 수정하고, indicator 여러개 들어갔을 때 잘라서 넣기 수정
     })
     .then(() => {
       res.end("step test");
@@ -27,5 +29,8 @@ sdkController.read = function (req, res) {
       res.json(projectId);
   });
 };
+
+
+// cofig 저장된 거 분리해서 보내주기
 
 module.exports = sdkController;
