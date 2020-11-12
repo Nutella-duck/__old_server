@@ -13,6 +13,7 @@ exports.up = function (knex) {
       table.integer("method");
       table.string("config");
       table.string("bestParmeter");
+      table.string("bestResult");
       table.integer("hpoProjectId").unsigned().notNullable();
       table.foreign("hpoProjectId").references("hpoProject.hpoProjectId");
     })
