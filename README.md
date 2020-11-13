@@ -1,6 +1,6 @@
 ![좌표](./logo.png)
 
-#Introduction
+# Introduction
 
 - 머신러닝 개발자를 위한 모델 성능 시각화 서비스 및 성능향상을 위한 HPO 서비스를 제공하는 웹 사이트.
 
@@ -8,7 +8,7 @@
 
 # API
 
-- Project 관련 API
+■ Project 관련 API
 
 1. /admin/project
 
@@ -24,7 +24,7 @@
 
 - PUT : id에 해당하는 프로젝트 수정.
 
-- RUN 관련 API
+■ RUN 관련 API
 
 1. /admin/run  
    GET : 모델 정보 10개씩 불러오기.
@@ -36,7 +36,7 @@
 
    PUT : id에 해당하는 모델 정보 수정.
 
-- GRAPH 관련 API
+■ GRAPH 관련 API
 
 1. /admin/graph/{id}
    GET : 그래프 관련 좌표 정보 불러오기.
@@ -66,7 +66,7 @@
 7. /admin/hpo/importances/{id}
    GET : 모델 성능향상에 필요한 하이퍼파라미터 중요도 정보를 불러오기.
 
-- 계정 관련 API
+■ 계정 관련 API
 
 1. /auth/register
    POST : 회원가입.
