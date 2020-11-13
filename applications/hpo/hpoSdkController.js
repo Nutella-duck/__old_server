@@ -87,7 +87,41 @@ const hpoConfigSave = async (space, best_result, best_hp, hpoProjectId) => {
     });
 };
 
-const hpoRunSave = async (trial_result, trial_hp, hpoProjectId) => {};
+const trialResultSave = async (target, config, id) => {
+  return knex
+    .insert({ target: target, config: config, hpoProjectId: id })
+    .into("hporun");
+};
+
+const hpoRunSave = async (trial_result, trial_hp, hpoProjectId) => {
+  let resultList = [];
+  for (key in trial_result) {
+    delete trial_result[key].status;
+    resultList.push(trial_result[key]);
+  }
+
+  let list = [];
+  let listName = [];
+
+  for (key in trial_hp) {
+    list.push(trial_hp[key]);
+    listName.push(key);
+  }
+
+  for (let i = 0; i < list[0].length; i++) {
+    let jsonVal = {};
+    for (let j = 0; j < list.length; j++) {
+      let key = listName[j];
+      jsonVal[key] = list[j][i];
+    }
+
+    trialResultSave(
+      JSON.stringify(resultList[i]),
+      JSON.stringify(jsonVal),
+      hpoProjectId
+    );
+  }
+};
 
 hpoSdkController.hpo = async (req, res) => {
   let {
@@ -111,10 +145,14 @@ hpoSdkController.hpo = async (req, res) => {
 
     await hpoConfigSave(space, best_result, best_hp, hpoProjectId);
 
+    await hpoRunSave(trial_result, trial_hp, hpoProjectId);
+
     res.end("완료");
   } catch (e) {
     res.status(401).end(e);
   }
+
+  res.end("test");
 };
 
 hpoSdkController.getHpo = async (req, res) => {

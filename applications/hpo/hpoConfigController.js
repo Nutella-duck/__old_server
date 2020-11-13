@@ -40,7 +40,7 @@ hpoConfigController.create = async (req, res) => {
   const configToString = JSON.stringify(config);
   knex
     .insert({ method: method, config: configToString, hpoProjectId: projectId })
-    .from("hpoconfig")
+    .into("hpoconfig")
     .then((result) => {
       res.end("hpoconfig Created");
     });
