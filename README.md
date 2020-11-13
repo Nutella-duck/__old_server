@@ -1,26 +1,78 @@
-API SERVER
+![좌표](./logo.png)
 
-1. /admin/project    
-프로젝트 생성 / 프로젝트 6개씩 한 페이지로 읽어오기    
+#Introduction
 
-2. /admin/project/:id     
-특정 프로젝트(name으로)에 있는 total run 수 읽어오기 / 삭제 / 업데이트    
+- 머신러닝 개발자를 위한 모델 성능 시각화 서비스 및 성능향상을 위한 HPO 서비스를 제공하는 웹 사이트.
 
-3. /admin/run    
-런 생성(추후 삭제) / 모든 런 읽어오기 (프로젝트에 상관없이)     
+- 개발기간 : 2020.06 ~ 2020.11 (약 6개월)
 
-4. /admin/run/:id     
-특정 런(name으로) 정보 읽어오기 / 이름 업데이트     
+# API
 
-5. /admin/run/project/:id     
-특정 프로젝트(id로)에 속한 런을 30개씩 한 페이지로 읽어오기    
+- Project 관련 API
 
-6. /project/run/:id
-프로젝트 지울 때 속해있는 모든 run 삭제
+1. /admin/project
 
-(현재)     
-1. 프로젝트 페이지 0이하 숫자 넣으면 1 페이지 출력되고, 없는 페이지는 아무것도 출력 안됨 (오류x)     
+- GET : 프로젝트 6개씩 한 페이지로 읽어오기.
 
-2. update 해도 create 순서로 가져옴 => 프로젝트는 create / 런은 update 순서로?
+- POST : 프로젝트 생성.
 
-3. id를 다시 채워넣으면, 순서도 꼬일 것 같은데
+2. /admin/project/:id
+
+- GET : work space에서 프로젝트 정보 받아올 때, 기본 프로젝트 한 개 정보를 받아옴.
+
+- DELETE : id에 해당하는 프로젝트 삭제.
+
+- PUT : id에 해당하는 프로젝트 수정.
+
+- RUN 관련 API
+
+1. /admin/run  
+   GET : 모델 정보 10개씩 불러오기.
+
+2. /admin/run/:id  
+   GET : id에 해당하는 모델 정보 불러오기.
+
+   DELETE : id에 해당하는 모델 삭제.
+
+   PUT : id에 해당하는 모델 정보 수정.
+
+- GRAPH 관련 API
+
+1. /admin/graph/{id}
+   GET : 그래프 관련 좌표 정보 불러오기.
+
+- HPO 관련 API
+
+1. /admin/hpo/key
+   GET : hpo 프로젝트 api key 값 정보 불러오기.
+
+2. /admin/hpo/config/{id}
+   GET : hpo 환경설정 값들에 대한 정보 받아오기.
+
+3. /admin/hpo/config
+   POST : hpo 환경설정 값들에 대한 정보 데이터베이스에 저장.
+
+4. /admin/hpo/hpoProject
+   GET : hpo 프로젝트 관련된 정보들 불러오기.
+
+   POST : hpo 프로젝트 생성.
+
+5. /admin/hpo/result/{id}
+   GET : 모델 성능향상에 필요한 하이퍼파라미터 정보 값들 불러오기.
+
+6. /admin/hpo/bestResult/{id}
+   GET : 모델 성능향상에 필요한 하이퍼라미터 값 중 가장 중요한 값의 정보 받아오기.
+
+7. /admin/hpo/importances/{id}
+   GET : 모델 성능향상에 필요한 하이퍼파라미터 중요도 정보를 불러오기.
+
+- 계정 관련 API
+
+1. /auth/register
+   POST : 회원가입.
+
+2. /auth/login
+   POST: 로그인.
+
+3. /auth/logout
+   GET : 로그아웃.
