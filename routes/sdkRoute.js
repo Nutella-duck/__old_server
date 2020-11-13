@@ -5,7 +5,7 @@ const sdkController = require("../applications/hpo/hpoSdkController.js");
 
 router.post("/sdk", sdkController.log);
 router.get("/sdk", sdkController.init);
-router.post("/hpo", sdkController.hpo);
-router.get("/hpo", sdkController.hpo);
+router.post("/sdk/hpo", sdkController.hpo);
+router.get("/sdk/hpo", sdkController.getHpo);
 
 module.exports = router;
