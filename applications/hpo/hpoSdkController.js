@@ -30,7 +30,7 @@ const getProjectId = async (id) => {
 
 const creatRunModel = async (name, projectId) => {
   return knex
-    .insert({ runName: name, hpoProjectId: projectId })
+    .insert({ runName: name, projectId: projectId })
     .from("run")
     .then((result) => {
       return result;
@@ -47,7 +47,7 @@ hpoSdkController.init = async (req, res) => {
       res.status(401).end("관련된 프로젝트가 없습니다.");
     }
 
-    projectId = projectId[0].hpoProjectId;
+    projectId = projectId[0].projectId;
 
     const runId = await creatRunModel(name, projectId);
 
@@ -64,10 +64,13 @@ hpoSdkController.init = async (req, res) => {
 const getHpoProjectId = async (hpoName) => {
   return knex
     .select("hpoProjectId")
-    .from("hpoproject")
+    .from("hpoProject")
     .where({ hpoName: hpoName })
     .then((result) => {
       return result;
+    })
+    .catch(function (err) {
+      console.error(err);
     });
 };
 
@@ -80,7 +83,7 @@ const hpoConfigSave = async (space, best_result, best_hp, hpoProjectId) => {
       bestParmeter: JSON.stringify(best_result),
       bestResult: JSON.stringify(best_hp),
     })
-    .from("hpoconfig")
+    .from("hpoConfig")
     .where({ hpoProjectId: hpoProjectId })
     .then((result) => {
       return result;
@@ -90,7 +93,7 @@ const hpoConfigSave = async (space, best_result, best_hp, hpoProjectId) => {
 const trialResultSave = async (target, config, id) => {
   return knex
     .insert({ target: target, config: config, hpoProjectId: id })
-    .into("hporun");
+    .into("hpoRun");
 };
 
 const hpoRunSave = async (trial_result, trial_hp, hpoProjectId) => {
@@ -136,7 +139,7 @@ hpoSdkController.hpo = async (req, res) => {
 
   try {
     let hpoProjectId = await getHpoProjectId(hpo_name);
-    console.log(hpoProjectId);
+
     if (hpoProjectId.length == 0) {
       res.status(401).end("관련된 프로젝트가 없습니다.");
     }
@@ -156,7 +159,12 @@ hpoSdkController.hpo = async (req, res) => {
 };
 
 hpoSdkController.getHpo = async (req, res) => {
-  return knex.select("method", "config", "hpoProjectId").from("hpoconfig");
+  knex
+    .select("method", "config", "hpoProjectId")
+    .from("hpoConfig")
+    .then((result) => {
+      res.json(result);
+    });
 };
 
 module.exports = hpoSdkController;
