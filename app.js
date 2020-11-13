@@ -1,6 +1,6 @@
 const express = require("express");
-const knex = require('knex');
-const knexFile = require('./knexfile').development;
+const knex = require("knex");
+const knexFile = require("./knexfile").development;
 const db = knex(knexFile);
 const project = require("./routes/projectRoute");
 const run = require("./routes/runRoute");
@@ -10,9 +10,17 @@ const bodyParser = require("body-parser");
 
 const port = 7000;
 
-// db.migrate.latest();
-// db.seed.run();
-// db.migrate.down();
+const sdkRouter = require("./routes/sdkRoute");
+
+const authRouter = require("./routes/authRoute");
+
+const hpoRouter = require("./routes/hpoRoute");
+
+const jwtMiddleWare = require("./applications/auth/jwtMiddleware");
+
+//db.migrate.latest();
+//db.seed.run();
+//db.migrate.down();
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -27,15 +35,22 @@ app.all("/*", function (req, res, next) {
   next();
 });
 
+app.use(bodyParser.json());
 app.use(express.static("swagger"));
 
-app.use(bodyParser.json());
+app.use("/auth", authRouter);
+
+//app.use(jwtMiddleWare); // 토큰 검증 미들웨어.
 
 app.use("/admin", project);
 
 app.use("/admin", run);
 
 app.use("/admin", graph);
+
+app.use("/admin", sdkRouter);
+
+app.use("/admin", hpoRouter);
 
 app.listen(port, () => {
   console.log("Express listening on port", port);
