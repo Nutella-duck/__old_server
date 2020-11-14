@@ -41,7 +41,7 @@
 1. /admin/graph/{id}
    GET : 그래프 관련 좌표 정보 불러오기.
 
-- HPO 관련 API
+■ HPO 관련 API
 
 1. /admin/hpo/key
    GET : hpo 프로젝트 api key 값 정보 불러오기.
