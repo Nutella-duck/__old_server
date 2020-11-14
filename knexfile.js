@@ -3,6 +3,8 @@ const path = require("path");
 const env = require("./properties/Config.json");
 
 let configData =
+  // local, server 변환 가능
+  // env.local.trim() == "development"
   env.server.trim() == "development"
     ? require("./properties/LocalConfig.json")
     : require("./properties/ServerConfig.json");

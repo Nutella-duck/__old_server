@@ -10,9 +10,10 @@ const getStepNumber = async (runId) => {
 };
 
 hpoSdkController.log = async (req, res) => {
-  let { runId, metrics } = req.body;
+  let runId = req.body['run_id'];
+  let metrics = req.body['metrics'];
   metrics = JSON.stringify(metrics);
-
+  
   let stepNumber = await getStepNumber(runId);
   stepNumber = stepNumber[0].stepNumber + 1;
 
@@ -26,6 +27,10 @@ hpoSdkController.log = async (req, res) => {
 
 const getProjectId = async (id) => {
   return knex.select("projectId").from("project").where({ apiKey: id });
+};
+
+const getHpoProjectIdFromKey = async (id) => {
+  return knex.select("hpoProjectId").from("hpoProject").where({ apiKey: id });
 };
 
 const creatRunModel = async (name, projectId) => {
@@ -157,12 +162,27 @@ hpoSdkController.hpo = async (req, res) => {
 };
 
 hpoSdkController.getHpo = async (req, res) => {
-  knex
-    .select("method", "config", "hpoProjectId")
-    .from("hpoConfig")
-    .then((result) => {
-      res.json(result);
-    });
+  let { id, name } = req.query;
+
+  let hpoProjectId = await getHpoProjectIdFromKey(id)
+
+  try {
+    if (hpoProjectId.length == 0){
+      res.status(401).end("관련된 HPO 프로젝트가 없습니다.");
+    }
+
+    hpoProjectId = hpoProjectId[0].hpoProjectId;
+
+    knex
+      .select("hpoProjectId", "method", "config")
+      .from("hpoConfig")
+      .where({ hpoProjectId: hpoProjectId })
+      .then((result) => {
+        res.json(result);
+      })
+  } catch (e) {
+    res.status(401).end(3);
+  }
 };
 
 module.exports = hpoSdkController;
