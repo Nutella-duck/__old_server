@@ -149,8 +149,6 @@ hpoSdkController.hpo = async (req, res) => {
     await hpoConfigSave(space, best_result, best_hp, hpoProjectId);
 
     await hpoRunSave(trial_result, trial_hp, hpoProjectId);
-
-    res.end("완료");
   } catch (e) {
     res.status(401).end(e);
   }

@@ -3,7 +3,7 @@ const path = require("path");
 const env = require("./properties/Config.json");
 
 let configData =
-  env.server.trim() == "development"
+  env.local.trim() == "development"
     ? require("./properties/LocalConfig.json")
     : require("./properties/ServerConfig.json");
 
