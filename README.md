@@ -8,6 +8,8 @@
 
 # API
 
+아래 내용은 [Swagger](http://ec2-3-34-251-160.ap-northeast-2.compute.amazonaws.com:7000/docs/)를 통해 확인 가능.       
+         
 ■ Project 관련 API
 
 1. /admin/project

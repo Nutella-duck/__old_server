@@ -7,7 +7,7 @@ exports.up = function (knex) {
       table.integer("privacy");
       table.string("apiKey");
       table.string("createdBy");
-      table.integer("userId").unsigned().notNullable();
+      table.integer("userId").unsigned();
       table.foreign("userId").references("user.userId");
       table.timestamps(true, true);
     })

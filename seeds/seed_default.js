@@ -11,9 +11,9 @@ exports.seed = function (knex) {
           ])
           .then((project) => {
             return knex("project").insert([
-              { projectName: "pj1", userId: 1 },
-              { projectName: "pj2", userId: 2 },
-              { projectName: "pj3", userId: 1 },
+              { projectName: "pj1", userId: 1, apiKey: 111 },
+              { projectName: "pj2", userId: 2, apiKey: 222 },
+              { projectName: "pj3", userId: 1, apiKey: 333 },
             ])
           })
           .then((project) => {
@@ -57,7 +57,9 @@ exports.seed = function (knex) {
           })
           .then((hpoConfig) => {
             return knex("hpoConfig").insert([
-              { hpoProjectId: 1, method: 3, config: JSON.stringify({"epoch": {"scope": [1, 10]}, "learning_rate": {"value": [0.1, 0.05, 0.01]}}), bestParmeter: JSON.stringify({"epoch": 1, "learning_rate": 0.05}) },
+              { hpoProjectId: 1, method: 2, config: JSON.stringify({"epoch": {"scope": [1, 10]}, "learning_rate": {"value": [0.1, 0.05, 0.01]}}), bestParmeter: JSON.stringify({"epoch": 1, "learning_rate": 0.05}) },
+              { hpoProjectId: 2, method: 2, config: JSON.stringify({"units": {"scope":[64,1024]}, "dropout1": {"scope":[0.25, 0.75]},
+               "optimizer": {"value":['rmsprop', 'adadelta', 'adam']}, "batch_size": {"value":[128, 512]}}) },
             ]);
           })
           .then((hpoRun) => {
