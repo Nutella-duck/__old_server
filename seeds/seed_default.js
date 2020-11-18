@@ -57,7 +57,7 @@ exports.seed = function (knex) {
           })
           .then((hpoConfig) => {
             return knex("hpoConfig").insert([
-              { hpoProjectId: 1, method: 2, config: JSON.stringify({"epoch": {"scope": [1, 10]}, "learning_rate": {"value": [0.1, 0.05, 0.01]}}), bestParmeter: JSON.stringify({"epoch": 1, "learning_rate": 0.05}) },
+              { hpoProjectId: 1, method: 2, config: JSON.stringify({"epoch": {"scope": [1, 10]}, "learning_rate": {"value": [0.1, 0.05, 0.01]}}), bestParameter: JSON.stringify({"epoch": 1, "learning_rate": 0.05}) },
               { hpoProjectId: 2, method: 2, config: JSON.stringify({"units": {"scope":[64,1024]}, "dropout1": {"scope":[0.25, 0.75]},
                "optimizer": {"value":['rmsprop', 'adadelta', 'adam']}, "batch_size": {"value":[128, 512]}}) },
             ]);
@@ -74,10 +74,10 @@ exports.seed = function (knex) {
           })
           .then((parameterImportance) => {
             return knex("parameterImportance").insert([
-              { hpoProjectId: 1, parmeter: "eval_loss", configParmeter: "epoch", importance: "10", correlation: "9"},
-              { hpoProjectId: 1, parmeter: "eval_loss", configParmeter: "learning_rate", importance: "8", correlation: "7"},
-              { hpoProjectId: 1, parmeter: "accuracy", configParmeter: "epoch", importance: "5", correlation: "3"},
-              { hpoProjectId: 1, parmeter: "accuracy", configParmeter: "learning_rate", importance: "7", correlation: "4"},
+              { hpoProjectId: 1, parameter: "eval_loss", configParameter: "epoch", importance: "10", correlation: "9"},
+              { hpoProjectId: 1, parameter: "eval_loss", configParameter: "learning_rate", importance: "8", correlation: "7"},
+              { hpoProjectId: 1, parameter: "accuracy", configParameter: "epoch", importance: "5", correlation: "3"},
+              { hpoProjectId: 1, parameter: "accuracy", configParameter: "learning_rate", importance: "7", correlation: "4"},
             ]);
           })
           .then(() => {

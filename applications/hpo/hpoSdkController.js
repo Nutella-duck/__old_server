@@ -79,14 +79,15 @@ const getHpoProjectId = async (hpoName) => {
     });
 };
 
-const hpoConfigSave = async (space, best_result, best_hp, hpoProjectId) => {
-  delete best_result.status;
+const hpoConfigSave = async (method, config, bestResult, bestHp, hpoProjectId) => {
+  delete bestResult.status;
 
   return knex
     .update({
-      config: JSON.stringify(space),
-      bestParmeter: JSON.stringify(best_result),
-      bestResult: JSON.stringify(best_hp),
+      method: JSON.stringify(method),
+      config: JSON.stringify(config),
+      bestParameter: JSON.stringify(bestHp),
+      bestResult: JSON.stringify(bestResult),
     })
     .from("hpoConfig")
     .where({ hpoProjectId: hpoProjectId })
@@ -101,18 +102,18 @@ const trialResultSave = async (target, config, id) => {
     .into("hpoRun");
 };
 
-const hpoRunSave = async (trial_result, trial_hp, hpoProjectId) => {
+const hpoRunSave = async (trialResult, trialHp, importances, hpoProjectId) => {
   let resultList = [];
-  for (key in trial_result) {
-    delete trial_result[key].status;
-    resultList.push(trial_result[key]);
+  for (key in trialResult) {
+    delete trialResult[key].status;
+    resultList.push(trialResult[key]);
   }
 
   let list = [];
   let listName = [];
 
-  for (key in trial_hp) {
-    list.push(trial_hp[key]);
+  for (key in trialHp) {
+    list.push(trialHp[key]);
     listName.push(key);
   }
 
@@ -129,21 +130,35 @@ const hpoRunSave = async (trial_result, trial_hp, hpoProjectId) => {
       hpoProjectId
     );
   }
+
+  // importance 저장
+  parameter = Object.keys(resultList[0])[0]
+  for (let i = 0; i< importances.length; i++){
+    configParameter = listName[i];
+    importance = importances[i];
+    importanceSave(parameter, configParameter, importance, hpoProjectId);
+  }
+};
+
+const importanceSave = async (parameter, configParameter, importance, id) => {
+  return knex
+    .insert({parameter: parameter, configParameter: configParameter,
+    importance: importance, hpoProjectId: id})
+    .into("parameterImportance");
 };
 
 hpoSdkController.hpo = async (req, res) => {
-  let {
-    hpo_name,
-    method,
-    space,
-    best_result,
-    best_hp,
-    trial_result,
-    trial_hp,
-  } = req.body;
+  let hpoProjectKey = req.body['hpo_project_key'];
+  let method = req.body['method'];
+  let config = req.body['config'];
+  let bestResult = req.body['best_result'];
+  let bestHp = req.body['best_hp'];
+  let trialResult = req.body['trial_result'];
+  let trialHp = req.body['trial_hp'];
+  let importances = req.body['importances']
 
   try {
-    let hpoProjectId = await getHpoProjectId(hpo_name);
+    let hpoProjectId = await getHpoProjectIdFromKey(hpoProjectKey);
 
     if (hpoProjectId.length == 0) {
       res.status(401).end("관련된 프로젝트가 없습니다.");
@@ -151,9 +166,9 @@ hpoSdkController.hpo = async (req, res) => {
 
     hpoProjectId = hpoProjectId[0].hpoProjectId;
 
-    await hpoConfigSave(space, best_result, best_hp, hpoProjectId);
+    await hpoConfigSave(method, config, bestResult, bestHp, hpoProjectId);
 
-    await hpoRunSave(trial_result, trial_hp, hpoProjectId);
+    await hpoRunSave(trialResult, trialHp, importances, hpoProjectId);
   } catch (e) {
     res.status(401).end(e);
   }
@@ -164,7 +179,7 @@ hpoSdkController.hpo = async (req, res) => {
 hpoSdkController.getHpo = async (req, res) => {
   let { id, name } = req.query;
 
-  let hpoProjectId = await getHpoProjectIdFromKey(id)
+  let hpoProjectId = await getHpoProjectIdFromKey(id);
 
   try {
     if (hpoProjectId.length == 0){
