@@ -133,21 +133,14 @@ const hpoRunSave = async (trialResult, trialHp, importances, hpoProjectId) => {
 
   // importance 저장
   parameter = Object.keys(resultList[0])[0]
-  console.log(parameter)
-  console.log(importances.length)
   for (let i = 0; i< importances.length; i++){
-    console.log("+++++")
     configParameter = listName[i];
     importance = importances[i];
-    console.log(importance)
-    console.log(configParameter)
     importanceSave(parameter, configParameter, importance, hpoProjectId);
   }
 };
 
 const importanceSave = async (parameter, configParameter, importance, id) => {
-  console.log("+++++")
-  console.log("importancesave에 들어오긴 함")
   return knex
     .insert({parameter: parameter, configParameter: configParameter,
     importance: importance, hpoProjectId: id})
