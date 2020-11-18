@@ -12,7 +12,7 @@ exports.up = function (knex) {
       table.increments("hpoConfigId").primary();
       table.integer("method");
       table.string("config");
-      table.string("bestParmeter");
+      table.string("bestParameter");
       table.string("bestResult");
       table.integer("hpoProjectId").unsigned().notNullable();
       table.foreign("hpoProjectId").references("hpoProject.hpoProjectId");
@@ -28,8 +28,8 @@ exports.up = function (knex) {
     })
     .createTableIfNotExists("parameterImportance", (table) => {
       table.increments("importanceId").primary();
-      table.string("parmeter");
-      table.string("configParmeter");
+      table.string("parameter");
+      table.string("configParameter");
       table.float("importance");
       table.float("correlation");
       table.integer("hpoProjectId").unsigned().notNullable();

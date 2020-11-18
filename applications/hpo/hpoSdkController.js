@@ -86,7 +86,7 @@ const hpoConfigSave = async (method, config, bestResult, bestHp, hpoProjectId) =
     .update({
       method: JSON.stringify(method),
       config: JSON.stringify(config),
-      bestParmeter: JSON.stringify(bestHp),
+      bestParameter: JSON.stringify(bestHp),
       bestResult: JSON.stringify(bestResult),
     })
     .from("hpoConfig")
@@ -102,7 +102,7 @@ const trialResultSave = async (target, config, id) => {
     .into("hpoRun");
 };
 
-const hpoRunSave = async (trialResult, trialHp, hpoProjectId) => {
+const hpoRunSave = async (trialResult, trialHp, importances, hpoProjectId) => {
   let resultList = [];
   for (key in trialResult) {
     delete trialResult[key].status;
@@ -130,6 +130,28 @@ const hpoRunSave = async (trialResult, trialHp, hpoProjectId) => {
       hpoProjectId
     );
   }
+
+  // importance 저장
+  parameter = Object.keys(resultList[0])[0]
+  console.log(parameter)
+  console.log(importances.length)
+  for (let i = 0; i< importances.length; i++){
+    console.log("+++++")
+    configParameter = listName[i];
+    importance = importances[i];
+    console.log(importance)
+    console.log(configParameter)
+    importanceSave(parameter, configParameter, importance, hpoProjectId);
+  }
+};
+
+const importanceSave = async (parameter, configParameter, importance, id) => {
+  console.log("+++++")
+  console.log("importancesave에 들어오긴 함")
+  return knex
+    .insert({parameter: parameter, configParameter: configParameter,
+    importance: importance, hpoProjectId: id})
+    .into("parameterImportance");
 };
 
 hpoSdkController.hpo = async (req, res) => {
@@ -140,7 +162,8 @@ hpoSdkController.hpo = async (req, res) => {
   let bestHp = req.body['best_hp'];
   let trialResult = req.body['trial_result'];
   let trialHp = req.body['trial_hp'];
-  
+  let importances = req.body['importances']
+
   try {
     let hpoProjectId = await getHpoProjectIdFromKey(hpoProjectKey);
 
@@ -152,7 +175,7 @@ hpoSdkController.hpo = async (req, res) => {
 
     await hpoConfigSave(method, config, bestResult, bestHp, hpoProjectId);
 
-    await hpoRunSave(trialResult, trialHp, hpoProjectId);
+    await hpoRunSave(trialResult, trialHp, importances, hpoProjectId);
   } catch (e) {
     res.status(401).end(e);
   }
