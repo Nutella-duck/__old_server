@@ -26,27 +26,16 @@ exports.seed = function (knex) {
           })
           .then((run) => {
             return knex("step").insert([
-              { stepNumber: 1, runId: 1, indicator: JSON.stringify({ accuracy: 0.5136481523513794 })  },
-              { stepNumber: 2, runId: 1, indicator: JSON.stringify({ accuracy: 0.6917036771774292 })  },
-              { stepNumber: 3, runId: 1, indicator: JSON.stringify({ accuracy: 0.7838888764381409 })  },
-              { stepNumber: 4, runId: 1, indicator: JSON.stringify({ accuracy: 0.8411852121353149 })  },
-              { stepNumber: 5, runId: 1, indicator: JSON.stringify({ accuracy: 0.8750740885734558 })  },
-              { stepNumber: 6, runId: 1, indicator: JSON.stringify({ accuracy: 0.8985000252723694 })  },
-              { stepNumber: 7, runId: 1, indicator: JSON.stringify({ accuracy: 0.913777768611908  })  },
-              { stepNumber: 8, runId: 1, indicator: JSON.stringify({ accuracy: 0.9248703718185425 })  },
-              { stepNumber: 9, runId: 1, indicator: JSON.stringify({ accuracy: 0.9307592511177063 })  },
-              { stepNumber: 10, runId: 1, indicator: JSON.stringify({ accuracy: 0.9395370483398438 }) },
+              { stepNumber: 1, runId: 1, indicator: JSON.stringify({ accuracy: 0.5136481523513794 }), system: JSON.stringify({"cpu":1299,"memory":1354,"net":[2635694080,13737709568,12500757,11846263,0,195216,0,0],"disk":[6991346,3750823,287206056448,154126327808,7477913,2625694]})  },
+              { stepNumber: 2, runId: 1, indicator: JSON.stringify({ accuracy: 0.6917036771774292 }), system: JSON.stringify({"cpu":2424,"memory":1355,"net":[2635698176,13737712640,12500780,11846286,0,195216,0,0],"disk":[6991347,3750826,287206318592,154126340096,7477914,2625694]}) },
+              { stepNumber: 3, runId: 1, indicator: JSON.stringify({ accuracy: 0.7838888764381409 }), system: JSON.stringify({"cpu":0,"memory":1355,"net":[2635701248,13737715712,12500802,11846308,0,195216,0,0],"disk":[6991349,3750832,287206842880,154126372864,7477914,2625694]})  },
+              { stepNumber: 4, runId: 1, indicator: JSON.stringify({ accuracy: 0.8411852121353149 }), system: JSON.stringify({"cpu":0,"memory":1355,"net":[2635704320,13737718784,12500824,11846331,0,195216,0,0],"disk":[6991350,3750834,287207105024,154126381056,7477915,2625694]})  },
+
               
               { stepNumber: 1, runId: 2, indicator: JSON.stringify({ accuracy: 0.4936481523513794 })  },
               { stepNumber: 2, runId: 2, indicator: JSON.stringify({ accuracy: 0.5217036771774292 })  },
               { stepNumber: 3, runId: 2, indicator: JSON.stringify({ accuracy: 0.6838888764381409 })  },
               { stepNumber: 4, runId: 2, indicator: JSON.stringify({ accuracy: 0.6411852121353149 })  },
-              { stepNumber: 5, runId: 2, indicator: JSON.stringify({ accuracy: 0.7750740885734558 })  },
-              { stepNumber: 6, runId: 2, indicator: JSON.stringify({ accuracy: 0.7985000252723694 })  },
-              { stepNumber: 7, runId: 2, indicator: JSON.stringify({ accuracy: 0.713777768611908  })  },
-              { stepNumber: 8, runId: 2, indicator: JSON.stringify({ accuracy: 0.8348703718185425 })  },
-              { stepNumber: 9, runId: 2, indicator: JSON.stringify({ accuracy: 0.8507592511177063 })  },
-              { stepNumber: 10, runId: 2, indicator: JSON.stringify({ accuracy: 0.8995370483398438 }) },
             ]);
           })
           .then((hpoProject) => {
