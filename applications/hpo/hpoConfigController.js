@@ -15,7 +15,7 @@ const gethpoProjcet = async (projectName) => {
 hpoConfigController.bestResult = async (req, res) => {
   const projectId = req.params.id;
   knex
-    .select("bestParmeter")
+    .select("bestParameter")
     .from("hpoConfig")
     .where({ hpoProjectId: projectId })
     .then((result) => {
