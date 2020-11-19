@@ -5,7 +5,7 @@ importanceController.read = async (req, res) => {
   const projectId = req.params.id;
 
   knex
-    .select("parmeter", "configParmeter", "importance", "Correlation")
+    .select("parameter", "configParameter", "importance", "correlation")
     .from("parameterImportance")
     .where({ hpoProjectId: projectId })
     .then((result) => {
