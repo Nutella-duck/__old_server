@@ -6,7 +6,7 @@ graphController.read = function (req, res) {
   var runIndex = req.params.id;
 
   knex
-    .select("stepNumber", "indicator")
+    .select("stepNumber", "indicator", "system")
     .from("step")
     .where({ runId: runIndex })
     .then((result) => {
