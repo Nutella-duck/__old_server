@@ -10,7 +10,6 @@ graphController.read = function (req, res) {
     .from("step")
     .where({ runId: runIndex })
     .then((result) => {
-      console.log(typeof result);
       res.end(JSON.stringify(result));
     });
 };

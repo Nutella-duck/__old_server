@@ -7,7 +7,6 @@ hpoProjectController.read = async (req, res) => {
     .select("hpoName", "description", "createBy")
     .from("hpoProject")
     .then((result) => {
-      console.log(result);
       res.json(result);
     });
 };
