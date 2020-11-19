@@ -4,7 +4,7 @@ let hpoProjectController = {};
 
 hpoProjectController.read = async (req, res) => {
   knex
-    .select("hpoName", "description", "createBy")
+    .select("hpoName", "description", "createBy", "hpoProjectId")
     .from("hpoProject")
     .then((result) => {
       res.json(result);
