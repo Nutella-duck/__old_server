@@ -1,4 +1,5 @@
 const knex = require("../../db/knex");
+const { JsonWebTokenError } = require("jsonwebtoken");
 
 let hpoSdkController = {};
 
@@ -12,13 +13,16 @@ const getStepNumber = async (runId) => {
 hpoSdkController.log = async (req, res) => {
   let runId = req.body['run_id'];
   let metrics = req.body['metrics'];
-  metrics = JSON.stringify(metrics);
+  let systems = req.body['system_info']
   
+  metrics = JSON.stringify(metrics);
+  systems = JSON.stringify(systems);
+    
   let stepNumber = await getStepNumber(runId);
   stepNumber = stepNumber[0].stepNumber + 1;
 
   return knex
-    .insert({ runId: runId, stepNumber: stepNumber, indicator: metrics })
+    .insert({ runId: runId, stepNumber: stepNumber, indicator: metrics, system: systems})
     .into("step")
     .then((result) => {
       res.end("log Success");
@@ -35,7 +39,7 @@ const getHpoProjectIdFromKey = async (id) => {
 
 const creatRunModel = async (name, projectId) => {
   return knex
-    .insert({ runName: name, projectId: projectId })
+    .insert({ runName: name, projectId: projectId, state: 'completed', createdBy: '이해인' })
     .from("run")
     .then((result) => {
       return result;

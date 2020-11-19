@@ -25,6 +25,7 @@ exports.up = function (knex) {
       table.increments("stepId").primary();
       table.integer("stepNumber");
       table.string("indicator");
+      table.string("system");
       table.integer("runId").unsigned().notNullable();
       table.foreign("runId").references("run.runId");
     });
