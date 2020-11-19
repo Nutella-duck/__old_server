@@ -8,7 +8,7 @@ const hpoConfigController = require("../applications/hpo/hpoConfigController");
 
 router.get("/hpo/hpoProject", hpoProjectController.read);
 router.get("/hpo/bestResult/:id", hpoConfigController.bestResult);
-router.get("/hpo/importance/:id", importanceController.read);
+router.get("/hpo/importances/:id", importanceController.read);
 router.get("/hpo/Key", hpoProjectController.getKey);
 router.get("/hpo/result/:id", hpoRunController.read);
 
