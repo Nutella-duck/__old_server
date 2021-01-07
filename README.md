@@ -6,9 +6,7 @@
 
 - 개발기간 : 2020.06 ~ 2020.11 (약 6개월)
 
-# API
-
-아래 내용은 [Swagger](http://ec2-3-34-251-160.ap-northeast-2.compute.amazonaws.com:7000/docs/)를 통해 확인 가능.       
+# API     
          
 ■ Project 관련 API
 
